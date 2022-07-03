@@ -1,15 +1,18 @@
-from flask import Flask
+from flask import Flask, request
 from operations import add, sub, mult, div
 # Put your app in here.
 
 
 app = Flask(__name__)
 
-@app.route("/add/<int:a>/<int:b>")
-def addTwoNumbers(a, b):
+# http://127.0.0.1:5000/add?a=8&b=10
+@app.route("/add")
+def addTwoNumbers():
   """Add the a and b parameter's sum in the URL"""
-  sum = add(a, b)
-  return str(sum)
+  a = int(request.args.get("a"))
+  b = int(request.args.get("b"))
+  result = add(a, b)
+  return str(result)
 
 
 @app.route("/sub/<int:a>/<int:b>")
